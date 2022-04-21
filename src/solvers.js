@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /*           _
    ___  ___ | |_   _____ _ __ ___
   / __|/ _ \| \ \ / / _ \ '__/ __|
@@ -24,7 +25,35 @@ window.findNRooksSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  // debugger;
+  // create empty array with valid combinations
+  let validCombinations = [];
+  let helperBoard = new Board({n: n});
+  for (let i = 0; i < n; i++) {
+    let temp = [];
+    for (let j = 0; j < n; j++) {
+      temp.push(j === i ? 1 : 0);
+    }
+    helperBoard.set(i, temp);
+}
+  // create helper function (findValidSolutions)
+  const findValidSolutions = function(currentBoard = []) {
+    if (currentBoard.length === n) {
+      let rookBoard = new Board(currentBoard);
+      if (!rookBoard.hasAnyRooksConflicts()) {
+        validCombinations.push(currentBoard);
+      }
+      return;
+    }
+
+    for (let i = 0; i < n; i++) {
+      findValidSolutions(currentBoard.concat([helperBoard.get(i)]));
+    }
+  };
+
+  findValidSolutions();
+  let solutionCount = validCombinations.length;
+
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
@@ -40,7 +69,35 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  // debugger;
+  // create empty array with valid combinations
+  let validCombinations = [];
+  let helperBoard = new Board({n: n});
+  for (let i = 0; i < n; i++) {
+    let temp = [];
+    for (let j = 0; j < n; j++) {
+      temp.push(j === i ? 1 : 0);
+    }
+    helperBoard.set(i, temp);
+  }
+  // create helper function (findValidSolutions)
+  const findValidSolutions = function(currentBoard = []) {
+    if (currentBoard.length === n) {
+      let queenBoard = new Board(currentBoard);
+      if (!queenBoard.hasAnyQueensConflicts()) {
+        validCombinations.push(currentBoard);
+      }
+      return;
+    }
+
+    for (let i = 0; i < n; i++) {
+      findValidSolutions(currentBoard.concat([helperBoard.get(i)]));
+    }
+  };
+
+  findValidSolutions();
+  let solutionCount = validCombinations.length;
+
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;

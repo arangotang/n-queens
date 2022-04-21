@@ -105,11 +105,15 @@ describe('Board', function() {
   describe('Board with major diagonal conflicts', function() {
     var matrix = [
       [0, 1, 0, 0],
-      [0, 0, 1, 0],
       [0, 0, 0, 0],
+      [0, 0, 0, 1],
       [0, 0, 0, 0]
     ];
     var board = new Board(matrix);
+
+    it('should  find a diagonal conflict at col 1, row 1', function() {
+      expect(board.hasMajorDiagonalConflictAt(1)).to.be.equal(true);
+    });
 
     it('should not find a row conflict', function() {
       expect(board.hasAnyRowConflicts()).to.be.equal(false);
