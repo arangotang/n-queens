@@ -209,7 +209,7 @@
         }
         return false;
       };
-      let lastIndex = minorDiagonalColumnIndexAtFirstRow + board.length - 1;
+      let lastIndex = board.length - 1 - minorDiagonalColumnIndexAtFirstRow;
       if (minorDiagonalColumnIndexAtFirstRow === 0) {
         return checkOppositeDiagonal(0, lastIndex);
       }
